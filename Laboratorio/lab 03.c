@@ -114,7 +114,6 @@ void exibir_lista(ListaDuplamenteEncadeada *lista) {
  */
 void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
     if (lista->inicio == NULL) {
-        printf("Lista vazia\n");
         return; // Se a lista estiver vazia, não há nada a exibir
     }
 
@@ -145,7 +144,6 @@ void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
 void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
     //Valida se a lista esta vazia
     if(lista->inicio == NULL){
-        printf("Lista vazia\n");
         return;
     }
     //Lista não vazia atribui a um nó o valor do primeiro termo da lista
