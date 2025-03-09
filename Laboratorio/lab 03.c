@@ -113,6 +113,11 @@ void exibir_lista(ListaDuplamenteEncadeada *lista) {
  * @param lista Ponteiro para a lista a ser exibida.
  */
 void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
+    if (lista->inicio == NULL) {
+        printf("Lista vazia\n");
+        return; // Se a lista estiver vazia, não há nada a exibir
+    }
+
     No *atual = lista->inicio;
     No *anterior = NULL;
 
@@ -138,86 +143,58 @@ void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
  * @param valor O valor a ser removido da lista.
  */
 void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
+    //Valida se a lista esta vazia
     if(lista->inicio == NULL){
+        printf("Lista vazia\n");
         return;
     }
+    //Lista não vazia atribui a um nó o valor do primeiro termo da lista
     No *atual = lista->inicio;
 
+    //Compara enquanto o atual não estiver vazio e valor for diferente
     while (atual != NULL && atual->valor != valor)
     {
         atual = atual->proximo;
     }
 
+    // Se no fim da comparação atual for nulo aquele valor não existe na lista
     if (atual == NULL)
     {
         return;
     }
-
+    //Se atual for o primeiro termo da lista
     if(atual == lista->inicio){
-        if(atual->proximo == NULL && atual->anterior == NULL){
+        //Se a lista tiver um unico termo
+        if(lista->quantidade == 1){
+            //remove ele, atualiza quantidade e inicio volta a ser NULL
             free(atual);
+            lista->quantidade--;
+            lista->inicio = NULL;
             return;
         }
+        //Se não for o unico termo inicio aponta para o proximo termo
         lista->inicio = atual->proximo;
+        //Se inicio não for nulo o valor anterior a ela vai ser NULL
         if (lista->inicio != NULL){
             lista->inicio->anterior = NULL;
         }
     }
-
+    //Se o atual estiver no meio ou final da lista
     else{
-        
+        //O proximo valor do anterior vai apontar pro proximo do atual
         atual->anterior->proximo = atual->proximo;
-
+        //Se o proximo valor do atual for diferente de null o anterior do proximo aponta pro anterior do atual
         if (atual->proximo != NULL){
             atual->proximo->anterior = atual->anterior;
         }
 
     }
-
+    //Libera a memoria
     free(atual);
-
-
+    //Decrementa a quantidade
     lista->quantidade--;
 }
-// void remover_valor(ListaDuplamenteEncadeada *lista, int valor) {
-//     No *anterior = NULL;
-//     No *atual = lista->inicio;
 
-//     while (atual != NULL && atual->valor != valor)
-//     {
-//         anterior = atual;
-//         atual = atual->proximo;
-//     }
-
-//     //Valida se a lista esta vazia para remover
-//     if (lista->quantidade == 0)
-//     {
-//         printf("Não existe valor na lista");
-//         return;
-//     }
-    
-//     //Remove termo em uma lista não vazia na primeira posição
-//     else if(anterior == NULL && atual != NULL)
-//     {
-//         lista->inicio = atual->proximo;
-//         free(atual);
-//     }
-
-//     //Remove termo no fim da lista
-//     else if(anterior != NULL && atual == NULL){
-//         anterior->anterior = NULL;
-//         free(anterior);
-//     }
-
-//     //Remove termo no meio da lista
-//     else{
-//         anterior->proximo = atual->proximo;
-//         atual->proximo->anterior = anterior;
-//         free(atual);
-
-//     }
-//     lista->quantidade--;
-//}
 
 int main(void) {
     ListaDuplamenteEncadeada *lista = criar_lista();
@@ -254,14 +231,14 @@ int main(void) {
     exibir_lista(lista);
     exibir_lista_invertida(lista);
 
-
-    for (int i = 1; i <= 10; i++) {
+    int i = 1;
+    for (i; i <= 10; i++) {
         inserir_valor(lista, i);
     }
     exibir_lista(lista);
     exibir_lista_invertida(lista);
 
-    for (int i = 1; i <= 10; i++) {
+    for (i = 1; i <= 10; i++) {
         remover_valor(lista, i);
     }
     exibir_lista(lista);
