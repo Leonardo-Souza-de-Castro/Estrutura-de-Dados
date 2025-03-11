@@ -97,13 +97,14 @@ void inserir_valor(ListaDuplamenteEncadeada *lista, int valor) {
  */
 void exibir_lista(ListaDuplamenteEncadeada *lista) {
     No *atual = lista->inicio;
-
+    printf("Início -> ");
     while (atual != NULL)
     {
         printf("%d ", atual->valor);
         atual = atual->proximo;
     }
 
+    printf("<- Final");
     printf("\n");
 }
 
@@ -114,15 +115,14 @@ void exibir_lista(ListaDuplamenteEncadeada *lista) {
  */
 void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
     if (lista->inicio == NULL) {
+        printf("Final -> <- Início\n");
         return; // Se a lista estiver vazia, não há nada a exibir
     }
-
+    printf("Final -> ");
     No *atual = lista->inicio;
-    No *anterior = NULL;
 
     while (atual->proximo != NULL)
     {
-        anterior = atual;
         atual = atual->proximo;
     }
 
@@ -132,6 +132,7 @@ void exibir_lista_invertida(ListaDuplamenteEncadeada *lista) {
         atual = atual->anterior;
     }
     
+    printf("<- Início");
     printf("\n");
 }
 
@@ -229,14 +230,13 @@ int main(void) {
     exibir_lista(lista);
     exibir_lista_invertida(lista);
 
-    int i = 1;
-    for (i; i <= 10; i++) {
+    for (int i = 1; i <= 10; i++) {
         inserir_valor(lista, i);
     }
     exibir_lista(lista);
     exibir_lista_invertida(lista);
 
-    for (i = 1; i <= 10; i++) {
+    for (int i = 1; i <= 10; i++) {
         remover_valor(lista, i);
     }
     exibir_lista(lista);
