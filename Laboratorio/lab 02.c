@@ -50,34 +50,26 @@ void remover(LDE *lista, int valor) {
 
     Celula *anterior = NULL;
     Celula *atual = lista->primeiro;
-    while(atual != NULL && atual->valor != valor){ //While igual ao do inserir porém ele vai rodar enquanto o valor do atual for diferente do valor que a pessoa quer remover
+    while(atual != NULL && atual->valor != valor){ 
         anterior = atual;
         atual = atual->proximo;
     }
 
-    if (atual == NULL) //Valida se existe o valor na lista
+    if (atual == NULL)
     {
-        return; //Para a função em caso de não achar o termo na lista
+        return;
     }
 
-    if (atual != NULL && anterior == NULL) //Valida se o termo atual não esta vazio e o anterior esta
-    //O que significa que este é o primeiro termo
+    if (atual != NULL && anterior == NULL)
     {
-        //Neste caso a lista deve apontar para o proximo valor apartir do atual
         lista->primeiro = atual->proximo;
-        lista->qtd--; // Decrementa um na quantidade de termos na lista
-    }
-    
-    //Valida se o termo atual esta preenchido e o anterior também esta
-    if (atual != NULL && anterior != NULL)
-    {
-        //Neste caso eu falo que o próximo do anterior não aponta mais para o atual
+        lista->qtd--;
+        free(atual);
+    }else{
         anterior->proximo = atual->proximo;
-        lista->qtd--; // Decrementa um na quantidade de termos na lista
+        lista->qtd--;
+        free(atual);
     }
-
-    free(atual);
-    
 }
 
 void mostrar(LDE *lista){
